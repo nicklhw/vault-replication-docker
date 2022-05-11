@@ -21,7 +21,8 @@ up-detach:
 
 init:
 	cd docker-compose/scripts \
-	  && ./init_c1.sh
+	  && ./init_c1.sh \
+	  && ./init_c2.sh \
 
 clean:
 	cd docker-compose \
@@ -43,8 +44,14 @@ show-members:
 	&& export VAULT_TOKEN=$$(cat docker-compose/scripts/vault.txt | jq -r '.root_token') \
 	&& vault operator raft list-peers
 
-ui:
+ui-c1:
 	open http://localhost:8200
 
-token:
-	cat docker-compose/scripts/vault.txt | jq -r '.root_token' | pbcopy
+ui-c2:
+	open http://localhost:38200
+
+token-c1:
+	cat docker-compose/scripts/vault_c1.txt | jq -r '.root_token' | pbcopy
+
+token-c2:
+	cat docker-compose/scripts/vault_c2.txt | jq -r '.root_token' | pbcopy
