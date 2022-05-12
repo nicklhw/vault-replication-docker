@@ -16,7 +16,7 @@ EOF
 done
 
 export VAULT_C1_S1_IP=$(docker inspect vault_c1_s1 -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}')
-export VAULT_INIT_OUTPUT=vault_c1.txt
+export VAULT_INIT_OUTPUT=vault_c1.json
 
 # Init vault_c1_s1
 echo "Init and unseal vault_c1_s1"

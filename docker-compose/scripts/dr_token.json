@@ -1,0 +1,27 @@
+{
+  "request_id": "eaf65b34-416f-8a27-6bd0-35b259aeab4d",
+  "lease_id": "",
+  "lease_duration": 0,
+  "renewable": false,
+  "data": null,
+  "warnings": null,
+  "auth": {
+    "client_token": "hvb.AAAAAQJCr_hQqWiL9ecFoQxvDKh2WCbAkwukiLgbBe6xQ3bBEde-7-3lU2tkzb251qVCFac8YoM0QuDtExNPYp6TL5MNu_T1kRNIYYRuKgrMvYqa5nkReYD8Uc1kQeyQA1CkHsiG9qGK0RlqJlNku9i0DMFvTSeUD3Qej9bd1vHp9YG5Ipxc5WdoWkxAFRafHaWXUKkHNA",
+    "accessor": "",
+    "policies": [
+      "default",
+      "dr-secondary-promotion"
+    ],
+    "token_policies": [
+      "default",
+      "dr-secondary-promotion"
+    ],
+    "identity_policies": null,
+    "metadata": null,
+    "orphan": true,
+    "entity_id": "",
+    "lease_duration": 86400,
+    "renewable": false,
+    "mfa_requirement": null
+  }
+}

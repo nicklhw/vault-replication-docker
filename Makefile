@@ -25,8 +25,7 @@ init:
 	  && ./init_c2.sh \
 
 clean:
-	cd docker-compose \
-	  && docker-compose down
+	cd docker-compose/scripts && ./cleanup.sh
 
 secret:
 	cd terraform && terraform init && terraform apply -var-file="secrets.tfvars" --auto-approve
@@ -51,7 +50,15 @@ ui-c2:
 	open http://localhost:38200
 
 token-c1:
-	cat docker-compose/scripts/vault_c1.txt | jq -r '.root_token' | pbcopy
+	cat docker-compose/scripts/vault_c1.json | jq -r '.root_token' | pbcopy
 
 token-c2:
-	cat docker-compose/scripts/vault_c2.txt | jq -r '.root_token' | pbcopy
+	cat docker-compose/scripts/vault_c2.json | jq -r '.root_token' | pbcopy
+
+init-dr:
+	cd docker-compose/scripts \
+	  && ./init_dr.sh
+
+init-dr-token:
+	cd docker-compose/scripts \
+	  && ./dr_ops_token.sh

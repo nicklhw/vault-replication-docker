@@ -36,6 +36,6 @@ terraform.rc
 
 *.hclic
 .idea
-vault_c1.txt
-vault_c2.txt
+vault_c1.json
+vault_c2.json
 
