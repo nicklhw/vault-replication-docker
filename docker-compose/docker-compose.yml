@@ -17,7 +17,7 @@ services:
       - /vault/data
       - /etc/vault/logs
     ports:
-      - "8200:8200/tcp"
+      - "18201:8200/tcp"
     cap_add:
       - IPC_LOCK
     container_name: vault_c1_s1
@@ -34,7 +34,7 @@ services:
       - /vault/data
       - /etc/vault/logs
     ports:
-      - "18200:8200/tcp"
+      - "18202:8200/tcp"
     cap_add:
       - IPC_LOCK
     container_name: vault_c1_s2
@@ -51,7 +51,7 @@ services:
       - /vault/data
       - /etc/vault/logs
     ports:
-      - "28200:8200/tcp"
+      - "18203:8200/tcp"
     cap_add:
       - IPC_LOCK
     container_name: vault_c1_s3
@@ -68,7 +68,7 @@ services:
       - /vault/data
       - /etc/vault/logs
     ports:
-      - "38200:8200/tcp"
+      - "28201:8200/tcp"
     cap_add:
       - IPC_LOCK
     container_name: vault_c2_s1
@@ -85,7 +85,7 @@ services:
       - /vault/data
       - /etc/vault/logs
     ports:
-      - "48200:8200/tcp"
+      - "28202:8200/tcp"
     cap_add:
       - IPC_LOCK
     container_name: vault_c2_s2
@@ -102,10 +102,61 @@ services:
       - /vault/data
       - /etc/vault/logs
     ports:
-      - "58200:8200/tcp"
+      - "28203:8200/tcp"
     cap_add:
       - IPC_LOCK
     container_name: vault_c2_s3
+    entrypoint: "vault server -config=/vault/config"
+    networks:
+      - vault
+
+  vault_c3_s1:
+    image: hashicorp/vault-enterprise:latest
+    #image: hashicorp/vault:latest
+    restart: always
+    volumes:
+      - ./vault_c3/vault_c3_s1:/vault/config:rw
+      - /vault/data
+      - /etc/vault/logs
+    ports:
+      - "38201:8200/tcp"
+    cap_add:
+      - IPC_LOCK
+    container_name: vault_c3_s1
+    entrypoint: "vault server -config=/vault/config"
+    networks:
+      - vault
+
+  vault_c3_s2:
+    image: hashicorp/vault-enterprise:latest
+    #image: hashicorp/vault:latest
+    restart: always
+    volumes:
+      - ./vault_c3/vault_c3_s2:/vault/config:rw
+      - /vault/data
+      - /etc/vault/logs
+    ports:
+      - "38202:8200/tcp"
+    cap_add:
+      - IPC_LOCK
+    container_name: vault_c3_s2
+    entrypoint: "vault server -config=/vault/config"
+    networks:
+      - vault
+
+  vault_c3_s3:
+    image: hashicorp/vault-enterprise:latest
+    #image: hashicorp/vault:latest
+    restart: always
+    volumes:
+      - ./vault_c3/vault_c3_s3:/vault/config:rw
+      - /vault/data
+      - /etc/vault/logs
+    ports:
+      - "38203:8200/tcp"
+    cap_add:
+      - IPC_LOCK
+    container_name: vault_c3_s3
     entrypoint: "vault server -config=/vault/config"
     networks:
       - vault

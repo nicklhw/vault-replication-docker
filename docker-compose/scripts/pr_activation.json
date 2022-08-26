@@ -1,0 +1,16 @@
+{
+  "request_id": "",
+  "lease_id": "",
+  "lease_duration": 0,
+  "renewable": false,
+  "data": null,
+  "warnings": null,
+  "wrap_info": {
+    "token": "eyJhbGciOiJFUzUxMiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NvciI6IiIsImFkZHIiOiJodHRwOi8vMTAuNS4wLjk6ODIwMCIsImV4cCI6MTY2MTU1MDQ0MSwiaWF0IjoxNjYxNTQ4NjQxLCJqdGkiOiJodnMuVDlKbzgybzI3OFJpVEdEdFkxRXJ1RWNIIiwibmJmIjoxNjYxNTQ4NjM2LCJ0eXBlIjoid3JhcHBpbmcifQ.AEtg5GNxf78rnkLBhs3GUNr4Q_TGut0b-R7sQb934eYNyitp3dqqOoga9OuBubtV50pC4E7ueZDGjwtB8oL8InuNAaU9N1yjBDpyYp9hF_7DECwKpAZxHb-RRHgVvaNcmAc7Ef0RciwqyNHx1VBI7HrorFOehp7qKNNa57iAUDz20ut4",
+    "accessor": "CHV9cbQB3GLkZjYSwJuM18HI",
+    "ttl": 1800,
+    "creation_time": "2022-08-26T21:17:21.533043051Z",
+    "creation_path": "sys/replication/performance/primary/secondary-token",
+    "wrapped_accessor": ""
+  }
+}

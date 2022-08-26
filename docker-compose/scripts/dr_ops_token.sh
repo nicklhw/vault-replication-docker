@@ -2,7 +2,7 @@
 
 # Setup VAULT_ADDR and VAULT_TOKEN
 export VAULT_INIT_OUTPUT=vault_c1.json
-export VAULT_ADDR=http://localhost:8200
+export VAULT_ADDR=http://localhost:28201
 export VAULT_TOKEN=$(cat ${VAULT_INIT_OUTPUT} | jq -r '.root_token')
 
 vault policy write dr-secondary-promotion ./dr_promotion_policy.hcl

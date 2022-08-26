@@ -39,4 +39,5 @@ terraform.rc
 vault_c1.json
 vault_c2.json
 dr_token.json
+dr_activation.json
 
