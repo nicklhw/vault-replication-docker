@@ -20,9 +20,11 @@ init:
 	cd docker-compose/scripts \
 	  && ./init_c1.sh \
 	  && ./init_c2.sh \
-	  && ./init_c3.sh \
-	  && ./init_dr.sh \
-	  && ./init_pr.sh
+	  && ./init_c3.sh
+
+# 	  \
+# 	  && ./init_dr.sh \
+# 	  && ./init_pr.sh
 
 clean:
 	cd docker-compose/scripts && ./cleanup.sh

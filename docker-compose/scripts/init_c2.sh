@@ -1,26 +1,12 @@
 #!/bin/bash
 set -euo pipefail
 
-# Docker compose IP address fix
-for server in vault_c2_s1 vault_c2_s2 vault_c2_s3
-do
-    export ip=$(docker inspect ${server} -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}')
-    echo "IP address of ${server}: ${ip}"
-    echo "Writing config file: ../vault_c2/${server}/addr.hcl"
-cat <<EOF > ../vault_c2/${server}/addr.hcl
-api_addr = "http://${ip}:8200"
-cluster_addr = "https://${ip}:8201"
-EOF
-    echo "starting ${server}"
-    docker restart $server
-done
-
-export VAULT_c2_S1_IP=$(docker inspect vault_c2_s1 -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}')
+export VAULT_C2_S1_DNS=vault_c2_s1
 export VAULT_INIT_OUTPUT=vault_c2.json
 
 # Init vault_c2_s1
 echo "Init and unseal vault_c2_s1"
-export VAULT_ADDR=http://localhost:28201
+export VAULT_ADDR=https://localhost:28201
 sleep 5
 vault operator init -format=json -n 1 -t 1 > ${VAULT_INIT_OUTPUT}
 
@@ -29,7 +15,7 @@ echo "Root VAULT TOKEN is: $VAULT_TOKEN"
 
 # Unseal vault_c2_s1
 echo "Unseal vault_c2_s1"
-export VAULT_ADDR=http://localhost:28201
+export VAULT_ADDR=https://localhost:28201
 
 export unseal_key=$(cat ${VAULT_INIT_OUTPUT} | jq -r '.unseal_keys_b64[0]')
 vault operator unseal ${unseal_key}
@@ -38,8 +24,8 @@ sleep 5
 
 # Join vault_c2_s2
 echo "Join vault_c2_s2"
-export VAULT_ADDR=http://localhost:28202
-vault operator raft join http://${VAULT_c2_S1_IP}:8200
+export VAULT_ADDR=https://localhost:28202
+vault operator raft join -leader-ca-cert=@../vault_c2/vault_c2_s2/vault_ca.crt https://${VAULT_C2_S1_DNS}:8200
 
 # Unseal vault_c2_s2
 echo "Unseal vault_c2_s2"
@@ -47,15 +33,15 @@ vault operator unseal ${unseal_key}
 
 # Join vault_c2_s3
 echo "Join vault_c2_s3"
-export VAULT_ADDR=http://localhost:28203
-vault operator raft join http://${VAULT_c2_S1_IP}:8200
+export VAULT_ADDR=https://localhost:28203
+vault operator raft join -leader-ca-cert=@../vault_c2/vault_c2_s3/vault_ca.crt https://${VAULT_C2_S1_DNS}:8200
 
 # Unseal vault_c2_s3
 echo "Unseal vault_c2_s3"
 vault operator unseal ${unseal_key}
 
 # Reset vault addr and add vault token
-export VAULT_ADDR=http://localhost:28201
+export VAULT_ADDR=https://localhost:28201
 
 sleep 5
 

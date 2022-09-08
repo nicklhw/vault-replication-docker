@@ -1,11 +1,21 @@
 version: '3.7'
 
 networks:
-  vault:
+  vault_c1:
     ipam:
       driver: default
       config:
         - subnet: "10.5.0.0/16"
+  vault_c2:
+    ipam:
+      driver: default
+      config:
+        - subnet: "10.6.0.0/16"
+  vault_c3:
+    ipam:
+      driver: default
+      config:
+        - subnet: "10.7.0.0/16"
 
 services:
   vault_c1_s1:
@@ -23,7 +33,7 @@ services:
     container_name: vault_c1_s1
     entrypoint: "vault server -config=/vault/config"
     networks:
-      - vault
+      - vault_c1
 
   vault_c1_s2:
     image: hashicorp/vault-enterprise:latest
@@ -40,7 +50,7 @@ services:
     container_name: vault_c1_s2
     entrypoint: "vault server -config=/vault/config"
     networks:
-      - vault
+      - vault_c1
 
   vault_c1_s3:
     image: hashicorp/vault-enterprise:latest
@@ -57,7 +67,7 @@ services:
     container_name: vault_c1_s3
     entrypoint: "vault server -config=/vault/config"
     networks:
-      - vault
+      - vault_c1
 
   vault_c2_s1:
     image: hashicorp/vault-enterprise:latest
@@ -74,7 +84,7 @@ services:
     container_name: vault_c2_s1
     entrypoint: "vault server -config=/vault/config"
     networks:
-      - vault
+      - vault_c2
 
   vault_c2_s2:
     image: hashicorp/vault-enterprise:latest
@@ -91,7 +101,7 @@ services:
     container_name: vault_c2_s2
     entrypoint: "vault server -config=/vault/config"
     networks:
-      - vault
+      - vault_c2
 
   vault_c2_s3:
     image: hashicorp/vault-enterprise:latest
@@ -108,7 +118,7 @@ services:
     container_name: vault_c2_s3
     entrypoint: "vault server -config=/vault/config"
     networks:
-      - vault
+      - vault_c2
 
   vault_c3_s1:
     image: hashicorp/vault-enterprise:latest
@@ -125,7 +135,7 @@ services:
     container_name: vault_c3_s1
     entrypoint: "vault server -config=/vault/config"
     networks:
-      - vault
+      - vault_c3
 
   vault_c3_s2:
     image: hashicorp/vault-enterprise:latest
@@ -142,7 +152,7 @@ services:
     container_name: vault_c3_s2
     entrypoint: "vault server -config=/vault/config"
     networks:
-      - vault
+      - vault_c3
 
   vault_c3_s3:
     image: hashicorp/vault-enterprise:latest
@@ -159,4 +169,59 @@ services:
     container_name: vault_c3_s3
     entrypoint: "vault server -config=/vault/config"
     networks:
-      - vault
+      - vault_c3
+
+  haproxy_c1:
+    container_name: haproxy_c1
+    image: haproxy:2.3
+    depends_on:
+      - vault_c1_s1
+      - vault_c1_s2
+      - vault_c1_s3
+    environment:
+      - BALANCE=roundrobin
+    volumes:
+      - ./haproxy_c1/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+    ports:
+      - 9201:80
+      - 1936:1936
+    networks:
+      - vault_c1
+      - vault_c2
+      - vault_c3
+
+  haproxy_c2:
+    container_name: haproxy_c2
+    image: haproxy:2.3
+    depends_on:
+      - vault_c2_s1
+      - vault_c2_s2
+      - vault_c2_s3
+    environment:
+      - BALANCE=roundrobin
+    volumes:
+      - ./haproxy_c2/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+    ports:
+      - 9202:80
+      - 1937:1936
+    networks:
+      - vault_c2
+      - vault_c3
+
+  haproxy_c3:
+    container_name: haproxy_c3
+    image: haproxy:2.3
+    depends_on:
+      - vault_c3_s1
+      - vault_c3_s2
+      - vault_c3_s3
+    environment:
+      - BALANCE=roundrobin
+    volumes:
+      - ./haproxy_c3/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+    ports:
+      - 9203:80
+      - 1938:1936
+    networks:
+      - vault_c3
+
