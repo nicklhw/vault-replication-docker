@@ -1,7 +1,6 @@
 storage "raft" {
   path = "/vault/data"
   node_id = "vault_s3"
-  performance_multiplier = "1"
 }
 
 listener "tcp" {
