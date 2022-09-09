@@ -48,17 +48,19 @@ show-members:
 	&& export VAULT_TOKEN=$$(cat docker-compose/scripts/vault.txt | jq -r '.root_token') \
 	&& vault operator raft list-peers
 
+ui: ui-c1 ui-c2 ui-c3 ui-c4
+
 ui-c1:
-	open http://localhost:18201
+	open https://localhost:9201/ui/vault/replication
 
 ui-c2:
-	open http://localhost:28201
+	open https://localhost:9202/ui/vault/replication
 
 ui-c3:
-	open http://localhost:38201
+	open https://localhost:9203/ui/vault/replication
 
 ui-c4:
-	open http://localhost:48201
+	open https://localhost:9204/ui/vault/replication
 
 token-c1:
 	cat docker-compose/scripts/vault_c1.json | jq -r '.root_token' | pbcopy
