@@ -3,6 +3,7 @@ set -euo pipefail
 
 export VAULT_C2_S1_DNS=vault_c2_s1
 export VAULT_INIT_OUTPUT=vault_c2.json
+export VAULT_SKIP_VERIFY=true
 
 # Init vault_c2_s1
 echo "Init and unseal vault_c2_s1"

@@ -38,6 +38,11 @@ terraform.rc
 .idea
 vault_c1.json
 vault_c2.json
+vault_c3.json
+vault_c4.json
 dr_token.json
 dr_activation.json
+pr_activation.json
+dr_ops_token_init.json
+dr_ops_token_encoded.json
 

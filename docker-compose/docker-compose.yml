@@ -16,6 +16,11 @@ networks:
       driver: default
       config:
         - subnet: "10.7.0.0/16"
+  vault_c4:
+    ipam:
+      driver: default
+      config:
+        - subnet: "10.8.0.0/16"
 
 services:
   vault_c1_s1:
@@ -171,6 +176,57 @@ services:
     networks:
       - vault_c3
 
+  vault_c4_s1:
+    image: hashicorp/vault-enterprise:latest
+    #image: hashicorp/vault:latest
+    restart: always
+    volumes:
+      - ./vault_c4/vault_c4_s1:/vault/config:rw
+      - /vault/data
+      - /etc/vault/logs
+    ports:
+      - "48201:8200/tcp"
+    cap_add:
+      - IPC_LOCK
+    container_name: vault_c4_s1
+    entrypoint: "vault server -config=/vault/config"
+    networks:
+      - vault_c4
+
+  vault_c4_s2:
+    image: hashicorp/vault-enterprise:latest
+    #image: hashicorp/vault:latest
+    restart: always
+    volumes:
+      - ./vault_c4/vault_c4_s2:/vault/config:rw
+      - /vault/data
+      - /etc/vault/logs
+    ports:
+      - "48202:8200/tcp"
+    cap_add:
+      - IPC_LOCK
+    container_name: vault_c4_s2
+    entrypoint: "vault server -config=/vault/config"
+    networks:
+      - vault_c4
+
+  vault_c4_s3:
+    image: hashicorp/vault-enterprise:latest
+    #image: hashicorp/vault:latest
+    restart: always
+    volumes:
+      - ./vault_c4/vault_c4_s3:/vault/config:rw
+      - /vault/data
+      - /etc/vault/logs
+    ports:
+      - "48203:8200/tcp"
+    cap_add:
+      - IPC_LOCK
+    container_name: vault_c4_s3
+    entrypoint: "vault server -config=/vault/config"
+    networks:
+      - vault_c4
+
   haproxy_c1:
     container_name: haproxy_c1
     image: haproxy:2.3
@@ -222,6 +278,23 @@ services:
     networks:
       - vault_c3
 
+  haproxy_c4:
+    container_name: haproxy_c4
+    image: haproxy:2.3
+    depends_on:
+      - vault_c4_s1
+      - vault_c4_s2
+      - vault_c4_s3
+    environment:
+      - BALANCE=roundrobin
+    volumes:
+      - ./haproxy_c4/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+    ports:
+      - 9204:443
+      - 1939:1936
+    networks:
+      - vault_c4
+
   haproxy_int:
     container_name: haproxy_int
     image: haproxy:2.3
@@ -239,3 +312,4 @@ services:
       - vault_c1
       - vault_c2
       - vault_c3
+      - vault_c4

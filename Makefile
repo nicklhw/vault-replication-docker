@@ -21,8 +21,12 @@ init:
 	  && ./init_c1.sh \
 	  && ./init_c2.sh \
 	  && ./init_c3.sh \
-	  && ./init_dr.sh \
-	  && ./init_pr.sh
+	  && ./init_c4.sh \
+	  && ./init_dr_c2.sh \
+	  && ./init_pr_c3.sh \
+	  && sleep 10 \
+	  && ./init_dr_c4.sh \
+	  && ./rep_stats.sh
 
 clean:
 	cd docker-compose/scripts && ./cleanup.sh
@@ -52,6 +56,9 @@ ui-c2:
 ui-c3:
 	open http://localhost:38201
 
+ui-c4:
+	open http://localhost:48201
+
 token-c1:
 	cat docker-compose/scripts/vault_c1.json | jq -r '.root_token' | pbcopy
 
@@ -60,6 +67,9 @@ token-c2:
 
 token-c3:
 	cat docker-compose/scripts/vault_c3.json | jq -r '.root_token' | pbcopy
+
+token-c4:
+	cat docker-compose/scripts/vault_c4.json | jq -r '.root_token' | pbcopy
 
 init-dr:
 	cd docker-compose/scripts \
