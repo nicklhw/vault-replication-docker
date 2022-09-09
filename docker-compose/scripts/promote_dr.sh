@@ -3,6 +3,7 @@
 set -euo pipefail
 
 # Setup VAULT_ADDR and VAULT_TOKEN
+export VAULT_SKIP_VERIFY=true
 export VAULT_INIT_OUTPUT=vault_c1.json
 export VAULT_ADDR=https://localhost:9202
 export VAULT_TOKEN=$(cat ${VAULT_INIT_OUTPUT} | jq -r '.root_token')

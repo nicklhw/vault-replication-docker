@@ -26,6 +26,7 @@ init:
 	  && ./init_pr_c3.sh \
 	  && sleep 10 \
 	  && ./init_dr_c4.sh \
+	  && sleep 10 \
 	  && ./rep_stats.sh
 
 clean:
@@ -71,10 +72,12 @@ token-c3:
 token-c4:
 	cat docker-compose/scripts/vault_c4.json | jq -r '.root_token' | pbcopy
 
-init-dr:
+promote-dr:
 	cd docker-compose/scripts \
-	  && ./init_dr.sh
+	  && ./promote_dr.sh \
+	  && sleep 10 \
+	  && ./rep_stats.sh
 
-init-dr-token:
+rep-status:
 	cd docker-compose/scripts \
-	  && ./dr_ops_token.sh
+	  && ./rep_stats.sh
