@@ -6,10 +6,10 @@
   "data": null,
   "warnings": null,
   "wrap_info": {
-    "token": "eyJhbGciOiJFUzUxMiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NvciI6IiIsImFkZHIiOiJodHRwczovL3ZhdWx0X2MxX3MxOjgyMDAiLCJleHAiOjE2NjI2NzU4NDMsImlhdCI6MTY2MjY3NDA0MywianRpIjoiaHZzLmJTZUFlUElxaTRaNlc5d3FXVUI3bUNjOSIsIm5iZiI6MTY2MjY3NDAzOCwidHlwZSI6IndyYXBwaW5nIn0.AEKXq-JH8VoeB2_q73TXRdNNQ0NfBnX-J2u90mjWD-wsZDE8Yp8tOxDM0AQvUR_jR29A15kOmC2mRM93mWPFl42-ANkL-5B_thpXCPdi4LwS4dwa2rHhV16IlqwqSFPN1BE4PnsYdqTNeNNlvxWYmQFd-eqtTIwXuuTfP-Ro6XexAfpz",
-    "accessor": "AhL2uXvvOIEp5QBFeS4uDd1u",
+    "token": "eyJhbGciOiJFUzUxMiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NvciI6IiIsImFkZHIiOiJodHRwczovL3ZhdWx0X2MxX3MxOjgyMDAiLCJleHAiOjE2NjI3MzY4NTksImlhdCI6MTY2MjczNTA1OSwianRpIjoiaHZzLm1hWGhibWZjbE1ZS3daT0FwNk15VlVJViIsIm5iZiI6MTY2MjczNTA1NCwidHlwZSI6IndyYXBwaW5nIn0.AYCflBCjt1lgDCxWEbkcTjInsKtga1AcyzX51O2bEYljiCKQXall6F4i0kVz9Es3LiLWS1Baih4MNmVpVrupkqzyAf_GL910bX0v2NbD-4LIsJxndSp7HT-e0UgVLiYNoyFrcDRTthxxMTv50JtCp7Mo8AoXyY2Vi-aNjQ53Voi7_vDW",
+    "accessor": "Y8Rux0pcUS1E7ZVPCpOQwM6J",
     "ttl": 1800,
-    "creation_time": "2022-09-08T21:54:03.265649483Z",
+    "creation_time": "2022-09-09T14:50:59.587366811Z",
     "creation_path": "sys/replication/performance/primary/secondary-token",
     "wrapped_accessor": ""
   }
