@@ -2,9 +2,9 @@
 
 **THIS REPO IS NOT FOR PRODUCTION USE**
 
-Stand up a 4 Vault Enterprise clusters to demo replication
+Stands up four 3-nodes Vault Enterprise clusters to demo replication.
 
-![Vault Enterprise Replication Architecture](assets/vault_replication_arch.png)
+![Vault Enterprise Replication Architecture](assets/vault_replication_arch.svg)
 
 # Quick Start
 1. Obtain a Vault Enterprise license, put the license file with the name `vault.hclic` under `docker-compose/vault/vault_s*`
