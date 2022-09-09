@@ -2,17 +2,18 @@
 
 **THIS REPO IS NOT FOR PRODUCTION USE**
 
-Stand up a 2 Vault Enterprise clusters to demo replication
+Stand up a 4 Vault Enterprise clusters to demo replication
+
+![Vault Enterprise Replication Architecture](assets/vault_replication_arch.png)
 
 # Quick Start
 1. Obtain a Vault Enterprise license, put the license file with the name `vault.hclic` under `docker-compose/vault/vault_s*`
 2. Install [Docker Compose](https://docs.docker.com/compose/install/#install-compose), it should come with Docker Desktop on Mac.
 3. `make all` to start the docker containers.
-4. `make token` copies the root token on your clip board that you can use to login.
-5. `make ui` opens the Vault UI on your default browser.
-6. `make init-dr` initialize DR replication between the 2 clusters.
-7. `make init-dr-token` initialize DR batch replication token.
-8. `make clean` to tear down the environment
+4. `make promote-dr` to promote vault_c2 as DR primary. The promotion script updates haproxy configuration to point to 
+    vault_c2 as the primary cluster, remember to roll back these changes if you want to rebuild the environemnt from scratch. 
+5. `make rep-status` to view replication status of all clusters.
+6. `make clean` to tear down the environment.
 
 # Resources
 
