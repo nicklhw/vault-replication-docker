@@ -302,6 +302,7 @@ services:
       - haproxy_c1
       - haproxy_c2
       - haproxy_c3
+      - haproxy_c4
     environment:
       - BALANCE=roundrobin
     volumes:
