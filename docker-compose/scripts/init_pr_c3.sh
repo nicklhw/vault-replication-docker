@@ -13,7 +13,7 @@ vault write -f sys/replication/performance/primary/enable primary_cluster_addr="
 
 sleep 5
 
-vault write sys/replication/performance/primary/secondary-token -format=json id="pr_secondary" > pr_activation.json
+vault write sys/replication/performance/primary/secondary-token -format=json id="pr_secondary" > pr_activation_c3.json
 
 sleep 5
 
@@ -26,7 +26,7 @@ export VAULT_TOKEN=$(cat ${VAULT_INIT_OUTPUT} | jq -r '.root_token')
 vault write \
   sys/replication/performance/secondary/enable \
   primary_api_addr="https://haproxy_int:18200" \
-  token=$(cat pr_activation.json | jq -r '.wrap_info.token') \
+  token=$(cat pr_activation_c3.json | jq -r '.wrap_info.token') \
   ca_file="/vault/config/vault_ca.crt"
 
 # Ensure that all nodes are unsealed
@@ -40,12 +40,12 @@ export VAULT_UNSEAL_KEY=$(cat ${VAULT_INIT_OUTPUT} | jq -r '.unseal_keys_b64[0]'
 export VAULT_ADDR=https://localhost:38201
 vault operator unseal ${VAULT_UNSEAL_KEY}
 
-sleep 5
+sleep 10
 
 export VAULT_ADDR=https://localhost:38202
 vault operator unseal ${VAULT_UNSEAL_KEY}
 
-sleep 5
+sleep 10
 
 export VAULT_ADDR=https://localhost:38203
 vault operator unseal ${VAULT_UNSEAL_KEY}

@@ -74,9 +74,15 @@ token-c3:
 token-c4:
 	cat docker-compose/scripts/vault_c4.json | jq -r '.root_token' | pbcopy
 
-promote-dr:
+promote-dr-c2:
 	cd docker-compose/scripts \
-	  && ./promote_dr.sh \
+	  && ./promote_dr_c2.sh \
+	  && sleep 10 \
+	  && ./rep_stats.sh
+
+demote-primary-c1:
+	cd docker-compose/scripts \
+	  && ./demote_primary_c1.sh \
 	  && sleep 10 \
 	  && ./rep_stats.sh
 
