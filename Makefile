@@ -86,6 +86,12 @@ demote-primary-c1:
 	  && sleep 10 \
 	  && ./rep_stats.sh
 
+failback-c1:
+	cd docker-compose/scripts \
+	  && ./failback_c1.sh \
+	  && sleep 10 \
+	  && ./rep_stats.sh
+
 rep-status:
 	cd docker-compose/scripts \
 	  && ./rep_stats.sh
