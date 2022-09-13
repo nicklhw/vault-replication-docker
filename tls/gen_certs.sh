@@ -39,9 +39,15 @@ openssl x509 -req \
 
 openssl x509 -in vault_c1.crt -text -noout
 
-cp vault_c1.crt vault_c1.key vault_ca.crt vault_ca.key ../docker-compose/vault_c1/vault_c1_s1
-cp vault_c1.crt vault_c1.key vault_ca.crt vault_ca.key ../docker-compose/vault_c1/vault_c1_s2
-cp vault_c1.crt vault_c1.key vault_ca.crt vault_ca.key ../docker-compose/vault_c1/vault_c1_s3
+echo "######### Create Vault C1 Certificate Chain #########"
+
+cat vault_c1.crt vault_ca.crt > vault_c1_chain.crt
+
+cp vault_c1_chain.crt vault_ca.crt vault_c1.key ../docker-compose/vault_c1/vault_c1_s1
+cp vault_c1_chain.crt vault_ca.crt vault_c1.key ../docker-compose/vault_c1/vault_c1_s2
+cp vault_c1_chain.crt vault_ca.crt vault_c1.key ../docker-compose/vault_c1/vault_c1_s3
+
+openssl x509 -noout -subject -issuer -in vault_c1_chain.crt
 
 echo "######### Create Vault c2 CSR #########"
 
@@ -70,9 +76,15 @@ openssl x509 -req \
 
 openssl x509 -in vault_c2.crt -text -noout
 
-cp vault_c2.crt vault_c2.key vault_ca.crt vault_ca.key ../docker-compose/vault_c2/vault_c2_s1
-cp vault_c2.crt vault_c2.key vault_ca.crt vault_ca.key ../docker-compose/vault_c2/vault_c2_s2
-cp vault_c2.crt vault_c2.key vault_ca.crt vault_ca.key ../docker-compose/vault_c2/vault_c2_s3
+echo "######### Create Vault C2 Certificate Chain #########"
+
+cat vault_c2.crt vault_ca.crt > vault_c2_chain.crt
+
+cp vault_c2_chain.crt vault_ca.crt vault_c2.key ../docker-compose/vault_c2/vault_c2_s1
+cp vault_c2_chain.crt vault_ca.crt vault_c2.key ../docker-compose/vault_c2/vault_c2_s2
+cp vault_c2_chain.crt vault_ca.crt vault_c2.key ../docker-compose/vault_c2/vault_c2_s3
+
+openssl x509 -noout -subject -issuer -in vault_c2_chain.crt
 
 echo "######### Create Vault c3 CSR #########"
 
@@ -101,9 +113,15 @@ openssl x509 -req \
 
 openssl x509 -in vault_c3.crt -text -noout
 
-cp vault_c3.crt vault_c3.key vault_ca.crt vault_ca.key ../docker-compose/vault_c3/vault_c3_s1
-cp vault_c3.crt vault_c3.key vault_ca.crt vault_ca.key ../docker-compose/vault_c3/vault_c3_s2
-cp vault_c3.crt vault_c3.key vault_ca.crt vault_ca.key ../docker-compose/vault_c3/vault_c3_s3
+echo "######### Create Vault C3 Certificate Chain #########"
+
+cat vault_c3.crt vault_ca.crt > vault_c3_chain.crt
+
+cp vault_c3_chain.crt vault_ca.crt vault_c3.key ../docker-compose/vault_c3/vault_c3_s1
+cp vault_c3_chain.crt vault_ca.crt vault_c3.key ../docker-compose/vault_c3/vault_c3_s2
+cp vault_c3_chain.crt vault_ca.crt vault_c3.key ../docker-compose/vault_c3/vault_c3_s3
+
+openssl x509 -noout -subject -issuer -in vault_c3_chain.crt
 
 echo "######### Create Vault c4 CSR #########"
 
@@ -132,6 +150,12 @@ openssl x509 -req \
 
 openssl x509 -in vault_c4.crt -text -noout
 
-cp vault_c4.crt vault_c4.key vault_ca.crt vault_ca.key ../docker-compose/vault_c4/vault_c4_s1
-cp vault_c4.crt vault_c4.key vault_ca.crt vault_ca.key ../docker-compose/vault_c4/vault_c4_s2
-cp vault_c4.crt vault_c4.key vault_ca.crt vault_ca.key ../docker-compose/vault_c4/vault_c4_s3
+echo "######### Create Vault C4 Certificate Chain #########"
+
+cat vault_c4.crt vault_ca.crt > vault_c4_chain.crt
+
+cp vault_c4_chain.crt vault_ca.crt vault_c4.key ../docker-compose/vault_c4/vault_c4_s1
+cp vault_c4_chain.crt vault_ca.crt vault_c4.key ../docker-compose/vault_c4/vault_c4_s2
+cp vault_c4_chain.crt vault_ca.crt vault_c4.key ../docker-compose/vault_c4/vault_c4_s3
+
+openssl x509 -noout -subject -issuer -in vault_c4_chain.crt
