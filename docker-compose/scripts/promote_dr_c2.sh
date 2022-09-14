@@ -20,13 +20,16 @@ export VAULT_UNSEAL_KEY=$(cat ${VAULT_INIT_OUTPUT} | jq -r '.unseal_keys_b64[0]'
 #vault token create -role=failover-handler -format=json -ttl=24h > dr_token.json
 
 # Bring down primary cluster
-echo "Pause Vault_C1 cluster"
+tput setaf 12 && echo "############## Pause Vault_C1 cluster ##############"
+tput sgr0
 docker pause vault_c1_s1
 docker pause vault_c1_s2
 docker pause vault_c1_s3
 
+sleep 5
+
 # Generate DR operation token
-echo "Generate DR operation token"
+tput setaf 12 && echo "############## Generate DR operation token for Vault C2 ##############"
 vault operator generate-root -dr-token -init -format=json > dr_ops_token_c2.json
 
 vault operator generate-root \

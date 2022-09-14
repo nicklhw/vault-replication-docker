@@ -3,7 +3,8 @@
 set -euo pipefail
 
 # Bring up primary cluster
-echo "Unpause Vault_C1 cluster"
+tput setaf 12 && echo "############## Unpause Vault_C1 cluster ##############"
+tput sgr0
 docker unpause vault_c1_s1
 docker unpause vault_c1_s2
 docker unpause vault_c1_s3
@@ -12,24 +13,24 @@ sleep 10
 
 export VAULT_SKIP_VERIFY=true
 
-echo "Demote Vault_C1 to secondary"
+tput setaf 12 && echo "############## Demote Vault_C1 to secondary ##############"
 export VAULT_ADDR=https://localhost:9201
 export VAULT_INIT_OUTPUT=vault_c1.json
 export VAULT_TOKEN=$(cat ${VAULT_INIT_OUTPUT} | jq -r '.root_token')
 vault write -f sys/replication/dr/primary/demote
 
-echo "Update Haproxy_C1 health check config to allow routing to DR cluster"
+tput setaf 12 && echo "############## Update Haproxy_C1 health check config to allow routing to DR cluster ##############"
 cat ./haproxy_c1_dr.cfg > ../haproxy_c1/haproxy.cfg
 
 docker restart haproxy_c1
 
 sleep 10
 
-echo "Generate secondary activation token from Vault_C2"
+tput setaf 12 && echo "############## Generate secondary activation token from Vault_C2 ##############"
 export VAULT_ADDR=https://localhost:9202
 export VAULT_DR_ACTIVATION_TOKEN=$(vault write sys/replication/dr/primary/secondary-token -format=json id="dr_secondary" | jq -r '.wrap_info.token')
 
-echo "Generate DR operation token from Vault_C1"
+tput setaf 12 && echo "############## Generate DR operation token from Vault_C1 ##############"
 export VAULT_ADDR=https://localhost:9201
 export VAULT_UNSEAL_KEY=$(cat ${VAULT_INIT_OUTPUT} | jq -r '.unseal_keys_b64[0]')
 
@@ -48,7 +49,7 @@ vault operator generate-root \
   -decode=$(cat dr_ops_token_encoded_c1.json | jq -r '.encoded_token') > dr_token_c1.json
 
 # Update Vault_C1 as DR Secondary
-echo "Update Vault_C1 as DR Secondary"
+tput setaf 12 && echo "############## Update Vault_C1 as DR Secondary ##############"
 vault write \
   sys/replication/dr/secondary/update-primary \
   dr_operation_token=$(cat dr_token_c1.json | jq -r '.token') \

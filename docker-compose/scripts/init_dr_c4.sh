@@ -3,7 +3,7 @@
 set -euo pipefail
 
 # Enable DR Primary Replication for Vault C3
-echo "Enable DR Primary Replication for Vault C3"
+tput setaf 12 && echo "############## Enable DR Primary Replication for Vault C3 ##############"
 export VAULT_SKIP_VERIFY=true
 export VAULT_INIT_OUTPUT=vault_c3.json
 export VAULT_ADDR=https://localhost:9203
@@ -18,7 +18,7 @@ vault write sys/replication/dr/primary/secondary-token -format=json id="dr_secon
 sleep 5
 
 # Enable DR Secondary Replication
-echo "Enable DR Secondary Replication for Vault C4"
+tput setaf 12 && echo "############## Enable DR Secondary Replication for Vault C4 ##############"
 export VAULT_INIT_OUTPUT=vault_c4.json
 export VAULT_ADDR=https://localhost:9204
 export VAULT_TOKEN=$(cat ${VAULT_INIT_OUTPUT} | jq -r '.root_token')
