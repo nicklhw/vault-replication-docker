@@ -8,7 +8,8 @@ terraform {
 }
 
 provider "vault" {
-  address = "https://localhost:9201"
+  address         = "https://localhost:9201"
+  skip_tls_verify = "true"
 }
 
 locals {
@@ -58,6 +59,7 @@ resource "vault_pki_secret_backend_config_urls" "root-ca-config-urls" {
 }
 
 resource "vault_mount" "pki_ica1" {
+  depends_on                = [vault_pki_secret_backend_config_urls.root-ca-config-urls]
   path                      = "pki_int"
   type                      = "pki"
   default_lease_ttl_seconds = local.default_1hr_in_sec
@@ -106,8 +108,8 @@ resource "vault_pki_secret_backend_role" "ica1-role" {
 }
 
 resource "vault_pki_secret_backend_cert" "app" {
-  depends_on = [vault_pki_secret_backend_role.ica1-role]
-  backend = vault_mount.pki_ica1.path
-  name = vault_pki_secret_backend_role.ica1-role.name
+  depends_on  = [vault_pki_secret_backend_role.ica1-role]
+  backend     = vault_mount.pki_ica1.path
+  name        = vault_pki_secret_backend_role.ica1-role.name
   common_name = "test.example.com"
 }
