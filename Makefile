@@ -95,3 +95,15 @@ failback-c1:
 rep-status:
 	cd docker-compose/scripts \
 	  && ./rep_stats.sh
+
+tf-apply:
+	cd terraform \
+	  && terraform init \
+	  && export VAULT_TOKEN=$$(cat ../docker-compose/scripts/vault_c1.json | jq -r '.root_token') \
+	  && terraform apply --auto-approve
+
+tf-destroy:
+	cd terraform \
+	  && terraform init \
+	  && export VAULT_TOKEN=$$(cat ../docker-compose/scripts/vault_c1.json | jq -r '.root_token') \
+	  && terraform destroy --auto-approve
