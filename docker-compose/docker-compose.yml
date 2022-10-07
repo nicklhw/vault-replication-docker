@@ -21,6 +21,11 @@ networks:
       driver: default
       config:
         - subnet: "10.8.0.0/16"
+  client:
+    ipam:
+      driver: default
+      config:
+        - subnet: "10.9.0.0/16"
 
 services:
   vault_c1_s1:
@@ -331,3 +336,29 @@ services:
     networks:
       - vault_c1
       - vault_c3
+      - client
+
+  vault-agent:
+    container_name: vault-agent
+    image: hashicorp/vault-enterprise:latest
+    restart: always
+    ports:
+      - "8200:8200"
+    volumes:
+      - ./vault-agent:/vault-agent
+      - ./nginx:/usr/share/nginx/html
+    environment:
+      - VAULT_SKIP_VERIFY=true
+    entrypoint: "vault agent -log-level debug -config=/vault-agent/vault-agent.hcl"
+    networks:
+      - client
+
+  nginx:
+    container_name: nginx-demo
+    image: "nginx:1.19.9-alpine"
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx:/usr/share/nginx/html
+    networks:
+      - client
