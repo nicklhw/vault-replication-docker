@@ -354,7 +354,7 @@ services:
       - client
 
   nginx:
-    container_name: nginx-demo
+    container_name: nginx
     image: "nginx:1.19.9-alpine"
     ports:
       - "8080:80"
