@@ -37,4 +37,7 @@ terraform.rc
 *.hclic
 .idea
 *.json
+*.key
+*.crt
+*.csr
 
