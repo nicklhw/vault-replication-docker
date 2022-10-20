@@ -362,3 +362,21 @@ services:
       - ./nginx:/usr/share/nginx/html
     networks:
       - client
+
+  dd-agent-c1:
+#    profiles: ["datadog"]
+    container_name: dd-agent-c1
+    restart: always
+    depends_on:
+      - haproxy_c1
+    image: "gcr.io/datadoghq/agent:7"
+    environment:
+      - DD_API_KEY=${DD_API_KEY}
+      - DD_SITE=datadoghq.com
+    volumes:
+      - ./dd-agent-c1/conf.yaml:/etc/datadog-agent/conf.d/vault.d/conf.yaml
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /proc/:/host/proc/:ro
+      - /sys/fs/cgroup:/host/sys/fs/cgroup:ro
+    networks:
+      - vault_c1

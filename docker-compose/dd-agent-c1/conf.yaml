@@ -1,0 +1,9 @@
+#  https://github.com/DataDog/integrations-core/blob/master/vault/datadog_checks/vault/data/conf.yaml.example
+
+init_config:
+
+instances:
+  - use_openmetrics: true
+    api_url: https://haproxy_c1/v1
+    no_token: true
+    tls_verify: false
