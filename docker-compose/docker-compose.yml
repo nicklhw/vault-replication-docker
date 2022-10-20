@@ -21,6 +21,11 @@ networks:
       driver: default
       config:
         - subnet: "10.8.0.0/16"
+  client:
+    ipam:
+      driver: default
+      config:
+        - subnet: "10.9.0.0/16"
 
 services:
   vault_c1_s1:
@@ -314,3 +319,46 @@ services:
       - vault_c2
       - vault_c3
       - vault_c4
+
+  haproxy_glb:
+    container_name: haproxy_glb
+    image: haproxy:2.3
+    depends_on:
+      - haproxy_c1
+      - haproxy_c2
+      - haproxy_c3
+      - haproxy_c4
+    volumes:
+      - ./haproxy_glb/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+    ports:
+      - 9200:443
+      - 1941:1936
+    networks:
+      - vault_c1
+      - vault_c3
+      - client
+
+  vault-agent:
+    container_name: vault-agent
+    image: hashicorp/vault-enterprise:latest
+    restart: always
+    ports:
+      - "8200:8200"
+    volumes:
+      - ./vault-agent:/vault-agent
+      - ./nginx:/usr/share/nginx/html
+    environment:
+      - VAULT_SKIP_VERIFY=true
+    entrypoint: "vault agent -log-level debug -config=/vault-agent/vault-agent.hcl"
+    networks:
+      - client
+
+  nginx:
+    container_name: nginx
+    image: "nginx:1.19.9-alpine"
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx:/usr/share/nginx/html
+    networks:
+      - client
