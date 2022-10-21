@@ -13,5 +13,3 @@ api_addr = "https://vault_c1_s3:8200"
 cluster_addr = "https://vault_c1_s3:8201"
 
 ui = "true"
-
-license_path = "/vault/config/vault.hclic"

@@ -42,6 +42,8 @@ services:
       - IPC_LOCK
     container_name: vault_c1_s1
     entrypoint: "vault server -config=/vault/config"
+    environment:
+      - VAULT_LICENSE=${VAULT_LICENSE}
     networks:
       - vault_c1
 
@@ -59,6 +61,8 @@ services:
       - IPC_LOCK
     container_name: vault_c1_s2
     entrypoint: "vault server -config=/vault/config"
+    environment:
+      - VAULT_LICENSE=${VAULT_LICENSE}
     networks:
       - vault_c1
 
@@ -76,6 +80,8 @@ services:
       - IPC_LOCK
     container_name: vault_c1_s3
     entrypoint: "vault server -config=/vault/config"
+    environment:
+      - VAULT_LICENSE=${VAULT_LICENSE}
     networks:
       - vault_c1
 
@@ -93,6 +99,8 @@ services:
       - IPC_LOCK
     container_name: vault_c2_s1
     entrypoint: "vault server -config=/vault/config"
+    environment:
+      - VAULT_LICENSE=${VAULT_LICENSE}
     networks:
       - vault_c2
 
@@ -110,6 +118,8 @@ services:
       - IPC_LOCK
     container_name: vault_c2_s2
     entrypoint: "vault server -config=/vault/config"
+    environment:
+      - VAULT_LICENSE=${VAULT_LICENSE}
     networks:
       - vault_c2
 
@@ -127,6 +137,8 @@ services:
       - IPC_LOCK
     container_name: vault_c2_s3
     entrypoint: "vault server -config=/vault/config"
+    environment:
+      - VAULT_LICENSE=${VAULT_LICENSE}
     networks:
       - vault_c2
 
@@ -144,6 +156,8 @@ services:
       - IPC_LOCK
     container_name: vault_c3_s1
     entrypoint: "vault server -config=/vault/config"
+    environment:
+      - VAULT_LICENSE=${VAULT_LICENSE}
     networks:
       - vault_c3
 
@@ -161,6 +175,8 @@ services:
       - IPC_LOCK
     container_name: vault_c3_s2
     entrypoint: "vault server -config=/vault/config"
+    environment:
+      - VAULT_LICENSE=${VAULT_LICENSE}
     networks:
       - vault_c3
 
@@ -178,6 +194,8 @@ services:
       - IPC_LOCK
     container_name: vault_c3_s3
     entrypoint: "vault server -config=/vault/config"
+    environment:
+      - VAULT_LICENSE=${VAULT_LICENSE}
     networks:
       - vault_c3
 
@@ -195,6 +213,8 @@ services:
       - IPC_LOCK
     container_name: vault_c4_s1
     entrypoint: "vault server -config=/vault/config"
+    environment:
+      - VAULT_LICENSE=${VAULT_LICENSE}
     networks:
       - vault_c4
 
@@ -212,6 +232,8 @@ services:
       - IPC_LOCK
     container_name: vault_c4_s2
     entrypoint: "vault server -config=/vault/config"
+    environment:
+      - VAULT_LICENSE=${VAULT_LICENSE}
     networks:
       - vault_c4
 
@@ -229,6 +251,8 @@ services:
       - IPC_LOCK
     container_name: vault_c4_s3
     entrypoint: "vault server -config=/vault/config"
+    environment:
+      - VAULT_LICENSE=${VAULT_LICENSE}
     networks:
       - vault_c4
 
