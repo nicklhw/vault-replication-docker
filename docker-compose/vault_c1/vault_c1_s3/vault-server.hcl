@@ -17,7 +17,7 @@ cluster_addr = "https://vault_c1_s3:8201"
 
 ui = "true"
 
-license_path = "/vault/config/vault.hclic"
+
 
 telemetry {
   prometheus_retention_time = "30s"
