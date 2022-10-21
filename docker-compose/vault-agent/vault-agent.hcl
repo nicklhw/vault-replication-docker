@@ -20,12 +20,17 @@ auto_auth {
 }
 
 template_config {
-  static_secret_render_interval = "10s"
+  static_secret_render_interval = "1m"
 }
 
 template {
   source = "/vault-agent/kv.tpl"
   destination = "/usr/share/nginx/html/kv.html"
+}
+
+template {
+  source = "/vault-agent/pki.tpl"
+  destination = "/usr/share/nginx/html/pki.html"
 }
 
 listener "tcp" {

@@ -7,7 +7,7 @@ resource "vault_mount" "kvv2" {
 
 resource "time_sleep" "wait" {
   depends_on      = [vault_mount.kvv2]
-  create_duration = "5s"
+  create_duration = "10s"
 }
 
 resource "null_resource" "kv1_to_kv2_migration" {

@@ -86,7 +86,7 @@ resource "vault_pki_secret_backend_role" "ica1-role" {
   depends_on       = [vault_pki_secret_backend_intermediate_set_signed.ica1-set-signed]
   backend          = vault_mount.pki_ica1.path
   name             = "example-dot-com"
-  ttl              = local.default_1hr_in_sec
+  ttl              = 60
   allow_ip_sans    = true
   key_type         = "rsa"
   key_bits         = 4096
