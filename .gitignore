@@ -41,3 +41,8 @@ terraform.rc
 *.crt
 *.csr
 
+/docker-compose/vault-agent/role_id
+/docker-compose/vault-agent/secret_id
+/docker-compose/vault-agent/token
+
+.DS_Store
