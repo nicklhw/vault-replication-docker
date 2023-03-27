@@ -52,6 +52,12 @@ vault write \
 
 sleep 5
 
+# The next steps to demote/promote PR Primary and then update the PR Secondary
+# is only necessary when the PR Primary nodes are not directly routable from
+# the PR Secondary nodes. Otherwise, the PR Secondary will connect to the new Primary
+# automatically. This is made possible because the heartbeat info between the
+# Primary and the PR secondary contains a list of all known DR clusters.
+
 tput setaf 12 && echo "############## Demote Vault C2 Performance Primary ##############"
 vault write -f \
   sys/replication/performance/primary/demote
