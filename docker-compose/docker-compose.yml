@@ -272,6 +272,8 @@ services:
       - 1936:1936
     networks:
       - vault_c1
+      - vault_c2
+      - vault_c3
 
   haproxy_c2:
     container_name: haproxy_c2
@@ -289,6 +291,7 @@ services:
       - 1937:1936
     networks:
       - vault_c2
+      - vault_c1
 
   haproxy_c3:
     container_name: haproxy_c3
@@ -306,6 +309,7 @@ services:
       - 1938:1936
     networks:
       - vault_c3
+      - vault_c4
 
   haproxy_c4:
     container_name: haproxy_c4
@@ -324,25 +328,25 @@ services:
     networks:
       - vault_c4
 
-  haproxy_int:
-    container_name: haproxy_int
-    image: haproxy:2.3
-    depends_on:
-      - haproxy_c1
-      - haproxy_c2
-      - haproxy_c3
-      - haproxy_c4
-    environment:
-      - BALANCE=roundrobin
-    volumes:
-      - ./haproxy_int/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
-    ports:
-      - 1940:1936
-    networks:
-      - vault_c1
-      - vault_c2
-      - vault_c3
-      - vault_c4
+#  haproxy_int:
+#    container_name: haproxy_int
+#    image: haproxy:2.3
+#    depends_on:
+#      - haproxy_c1
+#      - haproxy_c2
+#      - haproxy_c3
+#      - haproxy_c4
+#    environment:
+#      - BALANCE=roundrobin
+#    volumes:
+#      - ./haproxy_int/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+#    ports:
+#      - 1940:1936
+#    networks:
+#      - vault_c1
+#      - vault_c2
+#      - vault_c3
+#      - vault_c4
 
   haproxy_glb:
     container_name: haproxy_glb

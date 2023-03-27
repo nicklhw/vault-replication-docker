@@ -47,11 +47,11 @@ vault operator generate-root \
 # Promote DR Secondary
 vault write \
   sys/replication/dr/secondary/promote \
-  primary_cluster_addr="https://haproxy_int:18201" \
+  primary_cluster_addr="https://haproxy_c2:8201" \
   dr_operation_token=$(cat dr_token_c2.json | jq -r '.token')
 
 # Re-establish PR Secondary connection to the new DR Primary
-cat ./haproxy_int_dr.cfg > ../haproxy_int/haproxy.cfg
+#cat ./haproxy_int_dr.cfg > ../haproxy_int/haproxy.cfg
 
-docker restart haproxy_int
+#docker restart haproxy_int
 

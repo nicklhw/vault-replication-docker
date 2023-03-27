@@ -9,7 +9,7 @@ export VAULT_INIT_OUTPUT=vault_c1.json
 export VAULT_ADDR=https://localhost:9201
 export VAULT_TOKEN=$(cat ${VAULT_INIT_OUTPUT} | jq -r '.root_token')
 
-vault write -f sys/replication/performance/primary/enable primary_cluster_addr="https://haproxy_int:18201"
+vault write -f sys/replication/performance/primary/enable primary_cluster_addr="https://haproxy_c1:8201"
 
 sleep 5
 
@@ -25,7 +25,7 @@ export VAULT_TOKEN=$(cat ${VAULT_INIT_OUTPUT} | jq -r '.root_token')
 
 vault write \
   sys/replication/performance/secondary/enable \
-  primary_api_addr="https://haproxy_int:18200" \
+  primary_api_addr="https://haproxy_c1" \
   token=$(cat pr_activation_c3.json | jq -r '.wrap_info.token') \
   ca_file="/vault/config/vault_ca.crt"
 

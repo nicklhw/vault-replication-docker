@@ -55,4 +55,4 @@ vault write \
   dr_operation_token=$(cat dr_token_c1.json | jq -r '.token') \
   token=${VAULT_DR_ACTIVATION_TOKEN} \
   ca_file="/vault/config/vault_ca.crt" \
-  primary_api_addr="https://haproxy_int:18200"
+  primary_api_addr="https://haproxy_c2"
