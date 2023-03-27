@@ -292,6 +292,7 @@ services:
     networks:
       - vault_c2
       - vault_c1
+      - vault_c3
 
   haproxy_c3:
     container_name: haproxy_c3

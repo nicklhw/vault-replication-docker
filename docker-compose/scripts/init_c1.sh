@@ -60,4 +60,4 @@ tput setaf 12 && echo "############## Enable userpass auth on Vault_C1 #########
 
 vault auth enable userpass
 
-vault write auth/userpass/users/tester password="changeme" policies="admin" token_ttl=10m token_max_ttl=60m
+vault write auth/userpass/users/admin password="passw0rd" policies="admin" token_ttl=10m token_max_ttl=60m

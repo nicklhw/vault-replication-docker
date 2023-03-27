@@ -7,7 +7,7 @@ tput setaf 12 && echo "############## Enable DR Primary Replication for Vault C3
 export VAULT_SKIP_VERIFY=true
 export VAULT_INIT_OUTPUT=vault_c3.json
 export VAULT_ADDR=https://localhost:9203
-export VAULT_TOKEN=$(vault login -method=userpass username=tester password=changeme -format=json | jq -r '.auth.client_token')
+export VAULT_TOKEN=$(vault login -method=userpass username=admin password=passw0rd -format=json | jq -r '.auth.client_token')
 
 vault write -f sys/replication/dr/primary/enable primary_cluster_addr="https://haproxy_c3:8201"
 

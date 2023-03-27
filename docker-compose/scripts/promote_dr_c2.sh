@@ -2,7 +2,6 @@
 
 set -euo pipefail
 
-# Setup VAULT_ADDR and VAULT_TOKEN
 export VAULT_SKIP_VERIFY=true
 export VAULT_INIT_OUTPUT=vault_c1.json
 export VAULT_ADDR=https://localhost:9202
@@ -45,13 +44,41 @@ vault operator generate-root \
   -decode=$(cat dr_ops_token_encoded_c2.json | jq -r '.encoded_token') > dr_token_c2.json
 
 # Promote DR Secondary
+tput setaf 12 && echo "############## Promote Vault C2 as DR Primary ##############"
 vault write \
   sys/replication/dr/secondary/promote \
   primary_cluster_addr="https://haproxy_c2:8201" \
   dr_operation_token=$(cat dr_token_c2.json | jq -r '.token')
 
+sleep 5
+
+tput setaf 12 && echo "############## Demote Vault C2 Performance Primary ##############"
+vault write -f \
+  sys/replication/performance/primary/demote
+
+tput setaf 12 && echo "############## Promote Vault C2 as Performance Primary ##############"
+vault write \
+  sys/replication/performance/secondary/promote \
+  primary_cluster_addr="https://haproxy_c2:8201" \
+
+vault write \
+  sys/replication/performance/primary/secondary-token \
+  -format=json id="pr_secondary" > pr_activation_c3.json
+
+tput setaf 12 && echo "############## Update Vault C3 PR Primary ##############"
+export VAULT_ADDR=https://localhost:9203
+export VAULT_TOKEN=$(vault login -method=userpass username=admin password=passw0rd -format=json | jq -r '.auth.client_token')
+
+vault write \
+  sys/replication/performance/secondary/update-primary \
+  token=$(cat pr_activation_c3.json | jq -r '.wrap_info.token') \
+  primary_api_addr="https://haproxy_c2" \
+  ca_file="/vault/config/vault_ca.crt"
+
 # Re-establish PR Secondary connection to the new DR Primary
 #cat ./haproxy_int_dr.cfg > ../haproxy_int/haproxy.cfg
 
 #docker restart haproxy_int
+
+
 
